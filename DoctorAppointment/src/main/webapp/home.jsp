@@ -199,10 +199,6 @@ display: inline-block;
 			</ol>
 	</div>
 	
-	<div class="container1">
-	
-	</div>
-	
 	<div class="container">
 		<img alt=""
 			src="img/meet-my-doctor-1.png">

@@ -357,7 +357,7 @@ line-height: 10px;
 	
 	 <div class="registration form">
 	 <div class="close-btn">&times;</div>
-      <header>Enter your Details</header>
+      <header>Update your Details</header>
       <form action="DoctorDetails" method="post">
      	<label for="">Enter your username</label>	
      	<input type="text" placeholder="Enter your username" name="name" value="" readonly>

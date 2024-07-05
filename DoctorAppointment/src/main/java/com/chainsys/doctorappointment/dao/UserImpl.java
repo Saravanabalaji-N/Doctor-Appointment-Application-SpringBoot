@@ -26,26 +26,34 @@ public class UserImpl implements UserDao{
 	public boolean login(User userDetails) {
 
 		String query = "select * from user_details where user_mailId=? and user_password=? and user_profile=?";
-		User rows =jdbcTemplate.queryForObject(query, new MappingDetails(), userDetails.getMailid(), userDetails.getPassword(),userDetails.getProfile());
 		
-		if (rows != null) {
-		return true;
-		}
-		return false;
+try {
+	
+	User rows =jdbcTemplate.queryForObject(query, new MappingDetails(), userDetails.getMailid(), userDetails.getPassword(),userDetails.getProfile());
+
+	return true;
+}
+catch(Exception e) {
+	e.printStackTrace();
+	return false;
+}
+	
 	
 }
 	public void update(User userDetails) {
-		String query = "update user_details set user_dob=?,user_location=?,user_phoneno=?,user_image=? where user_mailId=? ";
+		String query = "update user_details set user_name=?,user_mailId=?,user_password=? where user_mailId=? ";
 		System.out.println();
-		Object[] params = {userDetails.getDob(),userDetails.getLocation(),userDetails.getPhoneno(), userDetails.getImage(),userDetails.getMailid()};
+		Object[] params = {userDetails.getUsername(),userDetails.getMailid(),userDetails.getPassword(),userDetails.getMailid()};
 		int rows = jdbcTemplate.update(query, params);
 	}
 	
-	public List<User> view(User userDetails) {
+	public User view(User userDetails) {
 		
 		String query = "select * from user_details where user_mailId=?";
-		List<User> list =jdbcTemplate.query(query, new MappingDetails(),userDetails.getMailid());
-		return list;
+		System.out.println(userDetails.getMailid()+"wwwwwwwwwwwwww");
+		User user =jdbcTemplate.queryForObject(query, new MappingDetails(),userDetails.getMailid());
+		System.out.println(user.getUsername()+"11111111111");
+		return user;
 	}
 	
 	

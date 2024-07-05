@@ -2,10 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.List"%>
 <%@ page import="com.chainsys.doctorappointment.model.User"%>
-<%@ page import="com.chainsys.doctorappointment.dao.UserImpl"%>
-<%@ page  import="org.springframework.context.ApplicationContext"%> 
-<%@ page  import="org.springframework.web.context.WebApplicationContext"%>
-<%@ page  import="org.springframework.web.context.support.WebApplicationContextUtils"%>
+
 <%
 HttpSession Session = request.getSession();
 
@@ -222,16 +219,25 @@ text-align: center;
 .dropdown-content {
 	display: none;
 	position: absolute;
-	right: 2%;
+	right: 25%;
+	background-color: #f9f9f9;
 	min-width: 155px;
-	z-index: 1;
-	border-radius: 10px 10px 10px 10px;
 	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+	border-radius: 0px 0px 10px 10px;
 }
 
+.dropdown-content a {
+	background-color: #fff;
+	float: none;
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+	text-align: left;
+}
 
-
-.dropdown-content button:hover {
+.dropdown-content a:hover {
 	background-color: #ddd;
 }
 
@@ -241,7 +247,7 @@ text-align: center;
 
 .containerbox .form{
 margin:20px;
-  padding: 2rem;
+  padding: 1rem;
   border:1px solid gray;
   position: relative;
 }
@@ -318,30 +324,63 @@ font-size: x-large;
 border-radius: 50%;
 line-height: 10px;
 }
+
+.icon button{
+background: transparent;
+border: 0;
+
+}
+
+.icon button i{
+font-size: large;
+cursor: pointer;
+}
 </style>
 
 </head>
 <body>
 	<div class="navbar">
 		<img alt="" src="img/dpulselogo-300x106.png" height="100%">
-		<ol>
-			<li><i class="fa-solid fa-heart-pulse"></i></li>
-
+		<ol>		
 			<li><div class="dropdown">
 					<button class="dropbtn" onclick="myFunction()"
 						style="color: black;">
-						<i class="fa-solid fa-bars-staggered"></i>
+						<i class="fa-solid fa-heart-pulse"></i>	
 					</button>
-					<div class="dropdown-content" id="myDropdown">
-						<form action="/logout" method="post">
-						<button>Profile</button>
-						</form>
-						<form action="/logout" method="post">
-						<button>Logout</button>
-						</form>
-					</div>
+					
 				</div></li>
+				<li class="icon"><a href="">
+							<form action="/logout" method="post">
+								<button><!-- <i class="fa-solid fa-bars-staggered"></i> -->
+								<i class="fa-solid fa-right-from-bracket"></i>
+								</button>
+							</form>
+						</a></li>
 		</ol>
+	</div>
+	<div class="dropdown-content" id="myDropdown">		
+	<div class="containerbox">
+	<%
+	User user=(User)session.getAttribute("list");
+	%>
+	 <div class="registration form">
+	 <div class="close-btn">&times;</div>
+      <header>Profile</header>
+      <form action="update" method="post">
+     	<label for="">Username</label>	
+     	<input type="text"  name="name" value="<%=user.getUsername()%>" >
+     	<label for="">E-mail</label>
+        <input type="email"  name="mail" value="<%=user.getMailid()%>" >
+        <label for="">Password</label>
+        <input type="text"  name="password" value="<%=user.getPassword()%>">
+        <label for="">Update Image</label>
+        <input type="file" placeholder="Create a password" name="image" required >
+        <input type="submit" class="button" value="update">
+      </form>
+      </div>
+    </div>
+	
+			
 	</div>
 
 	<div class="sidebar">
@@ -372,13 +411,13 @@ line-height: 10px;
 		</div>
 	</div>
 	
-	<div class="container2">
+	 <div class="container2">
 			<div class="box">
 				<img alt=""
 					src="img/male-doctor-with-stethoscope-vector-icon-circle-white-background_418020-88.avif"
 					height="220px" width="180px">
 				<p>Cardiologist</p>
-				<form action="AppointmentCheck" method="post">
+				<form action="booking" method="post">
 					<input type="hidden" name="action" value="Cardiologist"> <input
 						type="submit" value="book appointment">
 				</form>
@@ -388,7 +427,7 @@ line-height: 10px;
 					src="img/male-doctor-with-stethoscope-vector-icon-circle-white-background_418020-88.avif"
 					height="220px" width="180px">
 				<p>Dermatologists</p>
-				<form action="AppointmentCheck" method="post">
+				<form action="booking" method="post">
 					<input type="hidden" name="action" value="Dermatologists">
 					<input type="submit" value="book appointment">
 				</form>
@@ -399,7 +438,7 @@ line-height: 10px;
 					src="img/male-doctor-with-stethoscope-vector-icon-circle-white-background_418020-88.avif"
 					height="220px" width="180px">
 				<p>Gastroenterologists</p>
-				<form action="AppointmentCheck" method="post">
+				<form action="booking" method="post">
 					<input type="hidden" name="action" value="Gastroenterologists">
 					<input type="submit" value="book appointment">
 				</form>
@@ -409,37 +448,13 @@ line-height: 10px;
 					src="img/male-doctor-with-stethoscope-vector-icon-circle-white-background_418020-88.avif"
 					height="220px" width="180px">
 				<p>Neurologist</p>
-				<form action="AppointmentCheck" method="post">
+				<form action="booking" method="post">
 					<input type="hidden" name="action" value="Neurologist"> <input
 						type="submit" value="book appointment">
 				</form>
 			</div>
-		</div>
+		</div> 
 		
-		<div class="containerbox">
-		
-		 <div class="registration form">
-		 <div class="close-btn">&times;</div>
-	      <header>Profile</header>
-	      <form action="profile" method="post">
-
-	     	<input type="hidden" placeholder="Enter your username" name="mail" readonly >
-	   
-	     	<label for="">Enter your location</label>	
-	     	<input type="text" placeholder="Enter your location" name="location"  required >
-	     	<label for="">Enter your location</label>	
-	     	<input type="text" placeholder="Enter your location" name="location"  required >
-	     	 <label for="">Enter your PhoneNo</label>
-	        <input type="text" placeholder="Enter your phone-no" name="phone"  required >
-	        <label for="">Enter your DOB</label>
-	        <input type="date" placeholder="Enter your dob" name="dob" required>
-	        <label for="">Upload your Image</label>
-	        <input type="file" placeholder="upload your image" name="image" required > 
-	        <input type="submit" class="button" value="update">
-	      </form>
-	      </div>
-	
-    </div>
 	<script>
 		function myFunction() {
 			document.getElementById("myDropdown").classList.toggle("show");
@@ -449,7 +464,7 @@ line-height: 10px;
 			if (!e.target.matches('.dropbtn')) {
 				var myDropdown = document.getElementById("myDropdown");
 				if (myDropdown.classList.contains('show')) {
-					/*  myDropdown.classList.remove('show'); */
+					  /* myDropdown.classList.remove('show');  */
 				}
 			}
 		}

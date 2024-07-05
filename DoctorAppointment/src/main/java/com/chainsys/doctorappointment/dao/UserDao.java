@@ -13,6 +13,6 @@ public interface  UserDao {
 	
 	public void update(User userDetails) ;
 	
-	public List<User> view(User userDetails) ;
+	public User view(User userDetails) ;
 }
 

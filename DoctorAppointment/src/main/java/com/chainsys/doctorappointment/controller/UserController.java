@@ -17,9 +17,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-public class UserDetailsController {
+public class UserController {
 	@Autowired
-	UserDao user;
+	UserDao userDAO;
 	@Autowired
 	User userDetails;
 
@@ -39,50 +39,43 @@ public class UserDetailsController {
 			userDetails.setMailid(mail);
 			userDetails.setPassword(pass);
 
-			user.registration(userDetails);
+			userDAO.registration(userDetails);
 		}
 
 		return "registration.jsp";
 	}
-	
-	@PostMapping("/profile")
-	public String profile(@RequestParam("mail") String mail,@RequestParam("location") String location, @RequestParam("phone") String phone,
-			@RequestParam("dob") String dob, @RequestParam("image") String image, Model model) {
-		
+
+	@PostMapping("/update")
+	public String registeration(@RequestParam("name") String name,@RequestParam("mail") String mail, @RequestParam("password") String pass) {
+
+			userDetails.setUsername(name);
 			userDetails.setMailid(mail);
-			userDetails.setLocation(location);
-			userDetails.setPhoneno(phone);
-			userDetails.setDob(dob);
-			userDetails.setImage(image);
+			userDetails.setPassword(pass);
 
-			user.update(userDetails);
-			List<User> list=user.view(userDetails);
-			model.addAttribute("list",list );
-
-		return "patient.jsp";
+			userDAO.update(userDetails);
+		
+		return "registration.jsp";
 	}
 	
-
 	@PostMapping("/login")
 	public String registeration(@RequestParam("mail") String mail, @RequestParam("pass") String password,
-			@RequestParam("profile") String profile, HttpServletRequest request,HttpServletResponse response,Model model) {
+			@RequestParam("profile") String profile, HttpServletRequest request, HttpServletResponse responses) {
 		HttpSession session = request.getSession();
 		userDetails.setProfile(profile);
 		userDetails.setMailid(mail);
 		userDetails.setPassword(password);
-
+		
 		if (profile.equals("Patient")) {
-			if (user.login(userDetails) == true) {
-				
+			if (userDAO.login(userDetails) == true) {
 				session.setAttribute("mail", mail);
+				User user = userDAO.view(userDetails);
+				System.out.println(user.getMailid()+"2222222222222222");
+				session.setAttribute("list", user);
 				return "redirect:/patient.jsp";
-				
 			}
 		}
-
 		else if (profile.equals("Doctor")) {
-
-			if (user.login(userDetails) == true) {
+			if (userDAO.login(userDetails) == true) {
 				session.setAttribute("mail", mail);
 				return "redirect:/doctor.jsp";
 			}
@@ -91,16 +84,13 @@ public class UserDetailsController {
 	}
 
 	@PostMapping("/logout")
-	public String logout( HttpServletRequest request,HttpServletResponse response) {
+	public String logout(HttpServletRequest request, HttpServletResponse response) {
 
-				HttpSession session = request.getSession(false);
-				session.invalidate();
-				return "redirect:/home.jsp";
+		HttpSession session = request.getSession(false);
+		session.invalidate();
+		return "redirect:/home.jsp";
 
 	}
 
-	@PostMapping("/delete")
-	public String delete(@RequestParam("mail") String mail) {
-		return null;
-	}
+
 }

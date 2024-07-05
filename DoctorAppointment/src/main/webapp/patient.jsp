@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.List"%>
 <%@ page import="com.chainsys.doctorappointment.model.User"%>
+<%@ page import="com.chainsys.doctorappointment.model.Doctor"%>
 
 <%
 HttpSession Session = request.getSession();
@@ -341,11 +342,19 @@ cursor: pointer;
 <body>
 	<div class="navbar">
 		<img alt="" src="img/dpulselogo-300x106.png" height="100%">
-		<ol>		
+		<ol>	
+			<li><div class="dropdown">
+					<button class="dropbtn"
+						style="color: black;">
+						<i class="fa-solid fa-heart-pulse" style="font-size: large;"></i>	
+					</button>
+					
+				</div></li>	
 			<li><div class="dropdown">
 					<button class="dropbtn" onclick="myFunction()"
 						style="color: black;">
-						<i class="fa-solid fa-heart-pulse"></i>	
+						<i class="fa-solid fa-address-card" style="font-size: large;"></i>
+						
 					</button>
 					
 				</div></li>
@@ -372,7 +381,7 @@ cursor: pointer;
      	<label for="">E-mail</label>
         <input type="email"  name="mail" value="<%=user.getMailid()%>" >
         <label for="">Password</label>
-        <input type="text"  name="password" value="<%=user.getPassword()%>">
+        <input type="password"  name="password" value="<%=user.getPassword()%>">
         <label for="">Update Image</label>
         <input type="file" placeholder="Create a password" name="image" required >
         <input type="submit" class="button" value="update">
@@ -412,46 +421,26 @@ cursor: pointer;
 	</div>
 	
 	 <div class="container2">
+	 <%List<Doctor> details=(List<Doctor>)request.getAttribute("add");
+        		for(Doctor list:details){
+        		%>
+	 
 			<div class="box">
 				<img alt=""
 					src="img/male-doctor-with-stethoscope-vector-icon-circle-white-background_418020-88.avif"
 					height="220px" width="180px">
-				<p>Cardiologist</p>
-				<form action="booking" method="post">
-					<input type="hidden" name="action" value="Cardiologist"> <input
-						type="submit" value="book appointment">
-				</form>
+				<p><%=list.getDoctorName() %></p>
+				<p></p<%=list.getDoctorSpecs() %>>
+				<a href="appointmentbook.jsp?event=<%=list.getDoctorSpecs() %>">Book Appointment</a>
 			</div>
+			<%} %>
 			<div class="box">
 				<img alt=""
 					src="img/male-doctor-with-stethoscope-vector-icon-circle-white-background_418020-88.avif"
 					height="220px" width="180px">
-				<p>Dermatologists</p>
-				<form action="booking" method="post">
-					<input type="hidden" name="action" value="Dermatologists">
-					<input type="submit" value="book appointment">
-				</form>
-
-			</div>
-			<div class="box">
-				<img alt=""
-					src="img/male-doctor-with-stethoscope-vector-icon-circle-white-background_418020-88.avif"
-					height="220px" width="180px">
-				<p>Gastroenterologists</p>
-				<form action="booking" method="post">
-					<input type="hidden" name="action" value="Gastroenterologists">
-					<input type="submit" value="book appointment">
-				</form>
-			</div>
-			<div class="box">
-				<img alt=""
-					src="img/male-doctor-with-stethoscope-vector-icon-circle-white-background_418020-88.avif"
-					height="220px" width="180px">
+				<p>Naveen</p>
 				<p>Neurologist</p>
-				<form action="booking" method="post">
-					<input type="hidden" name="action" value="Neurologist"> <input
-						type="submit" value="book appointment">
-				</form>
+				<a href="appointmentbook.jsp?event=Cardiologist">Book Appointment</a>
 			</div>
 		</div> 
 		
@@ -464,7 +453,6 @@ cursor: pointer;
 			if (!e.target.matches('.dropbtn')) {
 				var myDropdown = document.getElementById("myDropdown");
 				if (myDropdown.classList.contains('show')) {
-					  /* myDropdown.classList.remove('show');  */
 				}
 			}
 		}

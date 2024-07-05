@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-
+<%@ page import="com.chainsys.doctorappointment.model.User"%>
 <%
 HttpSession Session = request.getSession();
 
@@ -196,16 +196,16 @@ gap:20px;
 }
 
 .dropdown-content {
-  display: none;
-  position: absolute;
-  right:3%;
-  background-color: #f9f9f9;
-  min-width: 155px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-    border-radius: 0px 0px 10px 10px;
+	display: none;
+	position: absolute;
+	right: 25%;
+	top:10%;
+	background-color: #f9f9f9;
+	min-width: 155px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+	border-radius: 0px 0px 10px 10px;
 }
-
 .dropdown-content a {
   background-color:#fff;
   float: none;
@@ -252,6 +252,7 @@ margin:20px;
    border-radius: 6px;
    outline: none;
  }
+ 
  .form input:focus{
    box-shadow: 0 1px 0 rgba(0,0,0,0.2);
  }
@@ -289,6 +290,13 @@ margin:20px;
   text-decoration: underline;
 }
 
+.containerbox .form{
+margin:20px;
+  padding: 1rem;
+  border:1px solid gray;
+  position: relative;
+}
+
 .container{
   max-width: 430px;
   width: 100%;
@@ -308,29 +316,39 @@ border-radius: 50%;
 line-height: 10px;
 }
 
+.icon button{
+background: transparent;
+border: 0;
+
+}
+
+.icon button i{
+font-size: large;
+cursor: pointer;
+}
+
 </style>
 
 </head>
 <body>
 	<div class="navbar">
 		<img alt="" src="img/dpulselogo-300x106.png" height="100%">
-		<ol >
-			<li><i class="fa-solid fa-bell"></i></li>
-			
+		<ol>		
+		<li><i class="fa-solid fa-bell"></i></li>
 			<li><div class="dropdown">
-				<button class="dropbtn" onclick="myFunction()" style="color:black;">
-					<i class="fa-solid fa-bars-staggered"></i>
-				</button>
-				<div class="dropdown-content" id="myDropdown">
-					<a href="" onclick="myFunction1()"class="profile" id="profile">Profile</a> 
-					<a href="">
-					<form action="/logout" method="post">
-					<input type="hidden" name="action" value="logout"> 
-					<input type="submit" value="Logout">
-					</form>
-					</a> 
-				</div>
-			</div></li>
+					<button class="dropbtn" onclick="myFunction()"
+						style="color: black;">
+						<i class="fa-solid fa-address-card" style="font-size: large;"></i>
+					</button>
+					
+				</div></li>
+				<li class="icon"><a href="">
+							<form action="/logout" method="post">
+								<button><!-- <i class="fa-solid fa-bars-staggered"></i> -->
+								<i class="fa-solid fa-right-from-bracket"></i>
+								</button>
+							</form>
+						</a></li>
 		</ol>
 	</div>
 `
@@ -338,7 +356,8 @@ line-height: 10px;
 		<p>Welcome, <%=Session.getAttribute("mail")%></p>
 		<ol>
 			<li>
-				<form action="AppointmentBooking">
+				<form action="doctorview" method="post">
+				<input type="hidden" name="mail" value="<%=Session.getAttribute("mail")%>">
 					<button type="submit" id="view">View Appointment</button>
 					<i class="fa-regular fa-clipboard"></i>
 				</form>
@@ -353,26 +372,32 @@ line-height: 10px;
 		
 	</div>
 	
-	<div class="container">
 	
+		<div class="dropdown-content" id="myDropdown">		
+	<div class="containerbox">
+<%
+	User user=(User)session.getAttribute("list");
+	%>
+
 	 <div class="registration form">
 	 <div class="close-btn">&times;</div>
-      <header>Update your Details</header>
-      <form action="DoctorDetails" method="post">
-     	<label for="">Enter your username</label>	
-     	<input type="text" placeholder="Enter your username" name="name" value="" readonly>
-     	<label for="">Enter your email</label>
-        <input type="email" placeholder="Enter your email" name="mail" value="" readonly>
-        <label for="">Enter your DOB</label>
-        <input type="date" placeholder="Enter your Specialization" name="dob">
-        <label for="">Enter your Specialization</label>
-        <input type="text" placeholder="Enter your Specialization" name="spec">
-        <label for="">Upload your Image</label>
+       <header>Update your Profiles</header>
+      <form action="doctorinsert" method="post">
+     	<label for=""> username</label>	
+     	<input type="text" placeholder="Enter your username" name="name" value="<%=user.getUsername()%>" >
+     	<label for="">E-email</label>
+        <input type="email" placeholder="Enter your email" name="mail" value="<%=user.getMailid()%>" >
+        <label for=""> Specialization</label>
+        <input type="email" placeholder="Enter your email" name="specs" value="Neurologist" readonly>
+        <label for="">Update Image</label>
         <input type="file" placeholder="Create a password" name="image" required >
         <input type="submit" class="button" value="update">
       </form>
       </div>
     </div>
+		
+	</div>
+	
 
 	<script>
 		function myFunction() {

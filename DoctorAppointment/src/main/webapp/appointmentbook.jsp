@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+	<%@ page import="com.chainsys.doctorappointment.model.User"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -101,12 +102,15 @@
 		<div class="registration form">
 
 			<header>Book Appointment</header>
-			<form action="AppointmentBooking" method="post">
-
+			<form action="booking" method="post">
+<%
+	User user=(User)session.getAttribute("list");
+	%>
+      				<input type="hidden"  name="mail" value="<%=user.getMailid()%>" >
 					<label for="">Specialist</label>
 					<input type="text" name="disease"value="<%=request.getParameter("event")%>" readonly> <label
 					for="">Date</label> <input type="date" name="date" required> <label
-					for="">Available Slot</label> <select name="slot" id="slot">
+					for="">Available Slot</label> <select name="time" id="slot">
 					<option value="10-12 ">10-12 AM</option>
 					<option value="1-3">1-3 PM</option>
 					<option value="4-6 ">4-6 PM</option>

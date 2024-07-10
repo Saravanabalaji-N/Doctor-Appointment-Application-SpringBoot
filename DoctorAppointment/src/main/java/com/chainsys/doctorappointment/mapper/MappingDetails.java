@@ -20,6 +20,7 @@ public class MappingDetails implements RowMapper<User> {
 		String name=rs.getString("user_name");
 		String mail=rs.getString("user_mailId");
 		String pass=rs.getString("user_password");
+		String type=rs.getString("user_specialization");
 	
 		User details=new User();
 		details.setId(id);
@@ -27,6 +28,7 @@ public class MappingDetails implements RowMapper<User> {
 		details.setUsername(name);
 		details.setMailid(mail);
 		details.setPassword(pass);
+		details.setType(type);
 		
 		return details;
 		

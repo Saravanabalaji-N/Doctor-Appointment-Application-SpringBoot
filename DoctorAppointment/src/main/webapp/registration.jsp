@@ -13,7 +13,7 @@
   font-family: 'Poppins', sans-serif;
 }
 
-.container{
+.container1{
   position: absolute;
   top: 50%;
   left: 50%;
@@ -24,9 +24,35 @@
   border-radius: 7px;
   box-shadow: 0 5px 10px rgba(0,0,0,0.3);
 }
-.container .registration{
+
+.container2{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  max-width: 430px;
+  width: 100%;
+  background: #fff;
+  border-radius: 7px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+}
+.container1 .registration1{
   display: none;
 }
+
+.container2 .registration2{
+  display: none;
+}
+#check1:checked ~ .registration1{
+  display: block;
+}
+#check1:checked ~ .login1{
+  display: none;
+}
+#check1{
+  display: none;
+}
+
 #check:checked ~ .registration{
   display: block;
 }
@@ -36,7 +62,7 @@
 #check{
   display: none;
 }
-.container .form{
+.container1 .form{
   padding: 2rem;
 }
 .form header{
@@ -94,8 +120,43 @@
   </style>
 </head>
 <body>
-<div class="container">
+<div class="container1">
     <input type="checkbox" id="check">
+    <div class="login1 form">
+      <header>Login</header>
+      <form action="/login" method="post">
+        <input type="email" placeholder="Enter your email" name="mail" id="name" required>
+        <input type="password" placeholder="Enter your password" name="pass" id="pass" required>
+        <input type="hidden" name="profile" value="<%=request.getParameter("Profile")%>" readonly="readonly">
+        <input type="submit"  class="button" value="submit">
+      </form>
+      <div class="signup">
+        <span class="signup">Don't have an account?
+         <label for="check1">Signup</label>
+        </span>
+      </div>
+    </div>
+    <div class="registration1 form">
+      <header>Signup</header>
+      <form action="/registration" method="post">
+      <input type="hidden" name="profile" value="<%=request.getParameter("Profile")%>" readonly="readonly">
+     	<input type="text" placeholder="Enter your username" name="username" required>
+        <input type="email" placeholder="Enter your email" name="mail" required>
+        <input type="password" placeholder="Create a password" name="pass" required >
+        <input type="password" placeholder="Confirm your password" name="repass" required>
+        <input type="submit" class="button" value="Signup">
+      </form>
+      <div class="signup">
+        <span class="signup">Already have an account?
+         <label for="check1">Login</label>
+        </span>
+      </div>
+    </div>
+  </div>
+ 
+<div class="container2">
+    <input type="checkbox" id="check">
+    <div class="close" onclick="patientClose()">&times;</div>
     <div class="login form">
       <header>Login</header>
       <form action="/login" method="post">
@@ -127,7 +188,5 @@
       </div>
     </div>
   </div>
- 
-
 </body>
 </html>

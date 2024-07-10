@@ -10,8 +10,17 @@ public class Doctor {
 	String doctorMail;
 	String doctorSpecs;
 	String doctorImage;
+	String profile;
 	
 	
+	
+	
+	public String getProfile() {
+		return profile;
+	}
+	public String setProfile(String profile) {
+		return this.profile = profile;
+	}
 	public String getDoctorid() {
 		return doctorid;
 	}

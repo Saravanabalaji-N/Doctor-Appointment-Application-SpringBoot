@@ -12,18 +12,25 @@ public class User {
 	String mailid;
 	String password;
 	String repassword;
-	String location;
+	String getmail;
 	String phoneno;
 	String dob;
 	String image;
+	String type;
 	
 	
 	
-	public String getLocation() {
-		return location;
+	public String getGetmail() {
+		return getmail;
 	}
-	public void setLocation(String location) {
-		this.location = location;
+	public void setGetmail(String getmail) {
+		this.getmail = getmail;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
 	}
 	public String getPhoneno() {
 		return phoneno;

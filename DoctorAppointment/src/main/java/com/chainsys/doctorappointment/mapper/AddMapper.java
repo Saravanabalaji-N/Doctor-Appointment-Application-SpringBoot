@@ -1,28 +1,31 @@
 package com.chainsys.doctorappointment.mapper;
 
 import java.sql.ResultSet;
+
 import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
-import com.chainsys.doctorappointment.model.Doctor;
+import com.chainsys.doctorappointment.model.User;
 
-public class AddMapper implements RowMapper<Doctor> {
+
+
+public class AddMapper implements RowMapper<User> {
 
 	@Override
-	public Doctor mapRow(ResultSet rs, int rowNum) throws SQLException {
+	public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+		String id=rs.getString("user_id");
+		String name=rs.getString("user_name");
+		String mail=rs.getString("user_mailId");
+		String specalization=rs.getString("user_specialization");
 		
-		String name=rs.getString("doctor_name");
-		String mail=rs.getString("doctor_mailId");
-		String specalization=rs.getString("doctor_id");
-		String image=rs.getString("doctor_image");
-		
-		Doctor doctor=new Doctor();
-		doctor.setDoctorName(name);
-		doctor.setDoctorMail(mail);
-		doctor.setDoctorSpecs(specalization);
-		doctor.setDoctorImage(image);
-		return doctor;
+		User user=new User();
+		user.setUsername(name);
+		user.setMailid(mail);
+		user.setType(specalization);
+		System.out.println(user.getType()+"33333333333333");
+		user.setId(id);
+		return user;
 	}
 
 }

@@ -119,11 +119,27 @@ if (Session == null || Session.getAttribute("mail") == null) {
 	align-items: center;
 	gap:40px;
 	position: relative;
+	
 }
 
+.container2 a{
+text-decoration: none;
+
+background:#aaaaaa;
+margin-bottom: 10px;
+padding: 10px;
+border-radius: 10px;
+color: black;
+transition: ease 0.1s;
+}
+
+.container2 a:hover{
+background: #034694;
+color: #fff;
+}
 
 .container2 div {
-	height: 320px;
+	height: max-content;
 	width: 250px;
 	border-radius: 10px;
 }
@@ -150,6 +166,8 @@ if (Session == null || Session.getAttribute("mail") == null) {
 
 .container2 .box {
 	text-align: center;
+	 display: flex;
+    flex-wrap: wrap;
 }
 
 .container2 .box input {
@@ -375,11 +393,12 @@ cursor: pointer;
 	 <div class="registration form">
 	 <div class="close-btn">&times;</div>
       <header>Profile</header>
-      <form action="update" method="post">
+      <form action="/patientupdate" method="post">
      	<label for="">Username</label>	
      	<input type="text"  name="name" value="<%=user.getUsername()%>" >
      	<label for="">E-mail</label>
         <input type="email"  name="mail" value="<%=user.getMailid()%>" >
+        <input type="hidden"  name="getmail" value="<%=user.getMailid()%>" >
         <label for="">Password</label>
         <input type="password"  name="password" value="<%=user.getPassword()%>">
         <label for="">Update Image</label>
@@ -413,15 +432,15 @@ cursor: pointer;
 	<div class="container">
 		<div class="search-container">
 
-				<input type="text" placeholder="Search.." name="search">
+				<input type="text" placeholder="Search..." name="search">
 				<button type="submit">
 					SEARCH <i class="fa fa-search"></i>
 				</button>
 		</div>
 	</div>
 	
-	 <div class="container2">
-	 <%List<Doctor> details=(List<Doctor>)request.getAttribute("add");
+	<%--  <div class="container2">
+	 <%List<Doctor> details=(List<Doctor>)session.getAttribute("add");
         		for(Doctor list:details){
         		%>
 	 
@@ -430,19 +449,14 @@ cursor: pointer;
 					src="img/male-doctor-with-stethoscope-vector-icon-circle-white-background_418020-88.avif"
 					height="220px" width="180px">
 				<p><%=list.getDoctorName() %></p>
-				<p></p<%=list.getDoctorSpecs() %>>
+				<p><%=list.getDoctorSpecs() %></p>
+				<p><%=list.getDoctorMail() %></p>
 				<a href="appointmentbook.jsp?event=<%=list.getDoctorSpecs() %>">Book Appointment</a>
 			</div>
 			<%} %>
-			<div class="box">
-				<img alt=""
-					src="img/male-doctor-with-stethoscope-vector-icon-circle-white-background_418020-88.avif"
-					height="220px" width="180px">
-				<p>Naveen</p>
-				<p>Neurologist</p>
-				<a href="appointmentbook.jsp?event=Cardiologist">Book Appointment</a>
-			</div>
-		</div> 
+		</div>  --%>
+		
+	
 		
 	<script>
 		function myFunction() {

@@ -8,12 +8,23 @@ import com.chainsys.doctorappointment.model.User;
 
 public interface  UserDao {
 	
-	public void registration(User userDetails) ;
+//	--------doctor side------
+	
+	public void doctorregistration(User userDetails) ;
+	
+	public void doctorupdate(User userDetails);
+	
+//	--------patient side------
+	
+	public void patientregistration(User userDetails) ;
 
+	public void patientupdate(User userDetails);
+	
+//	---------login
+	
 	public boolean login(User userDetails) ;
 	
-	public void update(User userDetails) ;
-	
+
 	public User view(User userDetails) ;
 	
 	public void appointmentbooking(AppoitmentBook booking);
@@ -22,8 +33,10 @@ public interface  UserDao {
 	
 	public String userview(Doctor doctor);
 	
-	public void doctorinsert(Doctor doctor);
+	public void doctorinsert(User userDetails);
 	
-	public List<Doctor> add(Doctor doctor);
+	public List<User> add(String profile);
+
+	
 }
 

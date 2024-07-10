@@ -34,8 +34,25 @@ public class UserController {
 		return "home.jsp";
 	}
 
-	@PostMapping("/registration")
-	public String registeration(@RequestParam("username") String name, @RequestParam("profile") String profile,
+	@PostMapping("/doctorregistration")
+	public String doctorregistration(@RequestParam("username") String name, @RequestParam("profile") String profile,
+			@RequestParam("mail") String mail, @RequestParam("pass") String pass,
+			@RequestParam("repass") String repass,@RequestParam("type") String type) {
+
+		if (pass.equals(repass)) {
+			userDetails.setProfile(profile);
+			userDetails.setUsername(name);
+			userDetails.setMailid(mail);
+			userDetails.setPassword(pass);
+			userDetails.setType(type);
+			userDAO.doctorregistration(userDetails);
+		}
+
+		return "home.jsp";
+	}
+	
+	@PostMapping("/patientregistration")
+	public String patientregistration(@RequestParam("username") String name, @RequestParam("profile") String profile,
 			@RequestParam("mail") String mail, @RequestParam("pass") String pass,
 			@RequestParam("repass") String repass) {
 
@@ -44,25 +61,50 @@ public class UserController {
 			userDetails.setUsername(name);
 			userDetails.setMailid(mail);
 			userDetails.setPassword(pass);
-
-			userDAO.registration(userDetails);
+			userDAO.patientregistration(userDetails);
 		}
 
-		return "registration.jsp";
+		return "home.jsp";
 	}
 
-	@PostMapping("/update")
-	public String registeration(@RequestParam("name") String name, @RequestParam("mail") String mail,
+	@PostMapping("/patientupdate")
+	public String patientupdate(@RequestParam("name") String name,@RequestParam("getmail") String getmail, @RequestParam("mail") String mail,
 			@RequestParam("password") String pass) {
 
+		userDetails.setGetmail(getmail);
 		userDetails.setUsername(name);
 		userDetails.setMailid(mail);
 		userDetails.setPassword(pass);
 
-		userDAO.update(userDetails);
+		userDAO.patientupdate(userDetails);
 
-		return "registration.jsp";
+		return "patient.jsp";
 	}
+	
+	@PostMapping("/doctorupdate")
+	public String doctorupdate(@RequestParam("name") String name,@RequestParam("getmail") String getmail, @RequestParam("mail") String mail,
+			@RequestParam("password") String pass) {
+
+		userDetails.setGetmail(getmail);
+		userDetails.setUsername(name);
+		userDetails.setMailid(mail);
+		userDetails.setPassword(pass);
+
+		userDAO.doctorupdate(userDetails);
+
+		return "patient.jsp";
+	}
+	
+	
+	@PostMapping("/admin")
+	public String admin()
+	{
+		
+		
+		return "admin.jsp";
+		
+	}
+	
 
 	@PostMapping("/login")
 	public String registeration(@RequestParam("mail") String mail, @RequestParam("pass") String password,
@@ -72,11 +114,17 @@ public class UserController {
 		userDetails.setMailid(mail);
 		userDetails.setPassword(password);
 
+		System.out.println(profile+mail+password);
+		
 		if (profile.equals("Patient")) {
 			if (userDAO.login(userDetails) == true) {
 				session.setAttribute("mail", mail);
 				User user = userDAO.view(userDetails);
 				session.setAttribute("list", user);
+				String profile1=doctor.setProfile("Doctor");
+				List<User> addlist=userDAO.add(profile1);
+				System.out.println(user.getMailid()+user.getUsername()+user.getType()+"2222222222");
+				session.setAttribute("add", addlist);
 				return "redirect:/patient.jsp";
 			}
 		} else if (profile.equals("Doctor")) {
@@ -84,8 +132,20 @@ public class UserController {
 				session.setAttribute("mail", mail);
 				User user = userDAO.view(userDetails);
 				session.setAttribute("list", user);
-				List<Doctor> addlist=userDAO.add(doctor);
-				session.setAttribute("add", addlist);
+				
+		
+				
+				
+				
+//				doctor.setDoctorMail(mail);
+//				String Specs=userDAO.userview(doctor);
+//				if(Specs==null) {
+//					return "redirect:/doctor.jsp";
+//				}
+//				else {
+//				List<AppoitmentBook> appointbooking= userDAO.doctorview(Specs);
+//				session.setAttribute("view", appointbooking);
+//				
 				return "redirect:/doctor.jsp";
 			}
 		}
@@ -119,31 +179,16 @@ public class UserController {
 
 	}
 
-	@PostMapping("/doctorinsert")
-	public String doctorinsert(@RequestParam("name") String name, @RequestParam("mail") String mail,
-			@RequestParam("specs") String specs, @RequestParam("image") String image) {
 
-		doctor.setDoctorName(name);
-		doctor.setDoctorMail(mail);
-		doctor.setDoctorSpecs(specs);
-		doctor.setDoctorImage(image);
-		userDAO.doctorinsert(doctor);
-		return "doctor.jsp";
-	}
 	
 	@PostMapping("/doctorview")
 	public String doctorview(@RequestParam("mail") String mail, HttpServletRequest request,
 			HttpServletResponse response) {
-
+		
 		HttpSession session = request.getSession();
-	
-		doctor.setDoctorMail(mail);
 		
-		String Specs=userDAO.userview(doctor);
 		
-		List<AppoitmentBook> appointbooking= userDAO.doctorview(Specs);
-		session.setAttribute("view", appointbooking);
-		return "view.jsp";
+		return "doctor.jsp";
 	}
 	
 //	@PostMapping("/add")

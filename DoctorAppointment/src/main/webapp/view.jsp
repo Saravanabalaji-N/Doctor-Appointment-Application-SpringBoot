@@ -37,7 +37,7 @@ opacity: 100%;
 </head>
 <body>
 
-  <table border="1">
+  <table >
         <thead>
             <tr>
                 <th>Appointment Id</th>

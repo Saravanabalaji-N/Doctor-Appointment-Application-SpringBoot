@@ -10,8 +10,7 @@ public class DoctorMapping implements RowMapper<String> {
 	@Override
 	public String mapRow(ResultSet rs, int rowNum) throws SQLException {
 		
-		String specs=rs.getString("doctor_specialization");
-	
+		String specs=rs.getString("user_specialization");
 		
 		return specs;
 	}

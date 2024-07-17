@@ -64,9 +64,9 @@ Doctor Appointment Application is used to book appoitment for user and they can 
 ### ================ Software And Tools Required ================
 - Eclipse
 - Java [JDK 17]
-- Tomcat v8.0+
+- Tomcat v9.0+
 - Apache Maven
-- Editor Sql developer
+- MySql Workbench 8.0 CE
 
 
 ### =================Doctor Appointment Application Features =================

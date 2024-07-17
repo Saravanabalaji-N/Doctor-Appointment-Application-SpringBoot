@@ -69,7 +69,7 @@ Doctor Appointment Application is used to book appoitment for user and they can 
 - MySql Workbench 8.0 CE
 
 
-### =================Doctor Appointment Application Features =================
+### ===============Doctor Appointment Application Features ===============
 
 <span style="color:blue">**Leave Management:**</span><br>
     Doctors Need the ability to request leave, specify the date and duration, and provide a reason (e.g., personal

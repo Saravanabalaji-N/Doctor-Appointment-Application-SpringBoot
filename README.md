@@ -77,7 +77,7 @@ appointment, professional development).Administrators Approve or reject leave re
 ensure adequate coverage. Doctors should be able to submit leave requests through the application.
 Notifications should be sent to administrators for approval.
 Upon approval, the leave request should update the doctor’s schedule and notify relevant staff members and patients if
-necessary.
+necessary
 .<br>
 <span style="color:blue">**Appointment Management:**</span><br>
 Provide admins with the capability to view and manage appointments across all doctors and departments.

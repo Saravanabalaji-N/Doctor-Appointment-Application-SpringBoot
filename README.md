@@ -77,8 +77,7 @@ appointment, professional development).Administrators Approve or reject leave re
 ensure adequate coverage. Doctors should be able to submit leave requests through the application.
 Notifications should be sent to administrators for approval.
 Upon approval, the leave request should update the doctor’s schedule and notify relevant staff members and patients if
-necessary
-.<br>
+necessary.<br>
 <span style="color:blue">**Appointment Management:**</span><br>
 Provide admins with the capability to view and manage appointments across all doctors and departments.
 Allow them to reschedule or cancel appointments when necessary, especially in cases of emergencies or operational changes.Allow patients to request rescheduling of appointments through the app. Admins or doctors can then approve and update the appointment details accordingly.Enable patients to cancel appointments with proper notifications to the clinic. Automate cancellation notifications to free up the slot for other patients.
